@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precious Seyram — Software Engineering Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#1d1e24;
+  --bg-2:#24262d;
+  --cream:#f1eee7;
+  --muted:#9b9da4;
+  --line:rgba(241,238,231,.16);
+  --accent:#91cfd0;
+  --accent-soft:rgba(145,207,208,.14);
+  --dark:#15161b;
+  --sidebar:86px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+::selection{background:var(--accent);color:var(--dark)}
+
+body:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:999;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500}
+.eyebrow{
+  display:inline-block;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  color:var(--muted);
+}
+.page{
+  min-height:100vh;
+  padding:0 7vw;
+  position:relative;
+}
+.page-inner{max-width:1320px;margin:auto}
+
+/* ---------- SIDE NAV ---------- */
+.side-nav{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  z-index:100;
+  border-right:1px solid var(--line);
+  background:rgba(29,30,36,.74);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:28px 0 25px;
+}
+.brand-mark{
+  font-size:.73rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+}
+.nav-menu{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:26px;
+  list-style:none;
+}
+.nav-menu a{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:.62rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  transition:.3s ease;
+  position:relative;
+}
+.nav-menu a:hover,.nav-menu a.active{color:var(--cream)}
+.nav-menu a.active:before{
+  content:"";
+  width:4px;height:4px;
+  border-radius:50%;
+  background:var(--accent);
+  position:absolute;
+  left:-10px;top:50%;
+  transform:translateY(-50%);
+}
+.side-year{
+  font-size:.58rem;
+  color:var(--muted);
+  letter-spacing:.1em;
+  writing-mode:vertical-rl;
+}
+
+/* ---------- FLOATING ICON ---------- */
+.float-orb{
+  position:fixed;
+  right:28px;bottom:28px;
+  width:62px;height:62px;
+  border:1px solid rgba(145,207,208,.45);
+  border-radius:50%;
+  z-index:110;
+  display:grid;place-items:center;
+  background:rgba(29,30,36,.72);
+  backdrop-filter:blur(12px);
+  color:var(--accent);
+  transition:.35s ease;
+  animation:float 3s ease-in-out infinite;
+}
+.float-orb:hover{
+  transform:scale(1.08) rotate(12deg);
+  background:var(--accent);
+  color:var(--dark);
+}
+.float-orb svg{width:20px}
+@keyframes float{50%{translate:0 -7px}}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  padding-left:calc(var(--sidebar) + 4vw);
+}
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:-3;
+  opacity:.28;
+  display:none;
+}
+.hero-video-overlay{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(90deg,rgba(29,30,36,.98) 0%,rgba(29,30,36,.78) 38%,rgba(29,30,36,.45) 100%),
+    linear-gradient(0deg,rgba(29,30,36,.92),transparent 55%);
+}
+.hero-glow{
+  position:absolute;
+  width:45vw;height:45vw;
+  right:-10vw;bottom:-20vw;
+  background:radial-gradient(circle,rgba(145,207,208,.12),transparent 68%);
+  filter:blur(20px);
+  z-index:-1;
+}
+.hero-content{max-width:1200px;width:100%}
+.hero-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:38px;
+}
+.availability{
+  display:flex;align-items:center;gap:9px;
+  font-size:.67rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 14px rgba(145,207,208,.8);
+}
+.hero-title{
+  font-size:clamp(4.2rem,10.5vw,10.5rem);
+  line-height:.79;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+  max-width:1200px;
+}
+.hero-title .outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(241,238,231,.62);
+}
+.hero-title .italic{
+  font-style:italic;
+  text-transform:none;
+  color:var(--accent);
+}
+.hero-bottom{
+  margin-top:55px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:50px;
+}
+.hero-description{
+  max-width:500px;
+  color:rgba(241,238,231,.7);
+  line-height:1.75;
+  font-size:.95rem;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  border:1px solid rgba(241,238,231,.3);
+  padding:14px 22px;
+  font-size:.65rem;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  transition:.3s ease;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--cream);border-color:var(--cream);color:var(--dark)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+.hero-scroll{
+  position:absolute;
+  right:8vw;bottom:30px;
+  font-size:.6rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.2em;
+  writing-mode:vertical-rl;
+}
+.hero-scroll:after{
+  content:"";
+  display:block;width:1px;height:55px;
+  margin:12px auto 0;
+  background:linear-gradient(var(--muted),transparent);
+}
+
+/* ---------- MARQUEE ---------- */
+.marquee{
+  margin-left:var(--sidebar);
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  white-space:nowrap;
+  padding:16px 0;
+  background:var(--bg-2);
+}
+.marquee-track{
+  display:inline-flex;
+  animation:marquee 28s linear infinite;
+}
+.marquee span{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:clamp(1.3rem,2.5vw,2.2rem);
+  margin-right:50px;
+}
+.marquee span b{font-family:'DM Sans';font-size:.55em;font-style:normal;color:var(--accent);vertical-align:middle}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- SECTION HEAD ---------- */
+.section{
+  padding-top:145px;
+  padding-bottom:145px;
+}
+.section-head{
+  display:grid;
+  grid-template-columns:170px 1fr;
+  gap:30px;
+  margin-bottom:75px;
+}
+.section-number{color:var(--muted);font-size:.7rem;letter-spacing:.12em}
+.section-title{
+  font-size:clamp(3rem,7vw,7.2rem);
+  line-height:.86;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+}
+.section-title em{font-style:italic;text-transform:none;color:var(--accent)}
+
+/* ---------- ABOUT ---------- */
+.about-grid{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:9vw;
+  align-items:start;
+}
+.photo-wrap{
+  position:relative;
+  max-width:470px;
+}
+.photo-frame{
+  aspect-ratio:4/5;
+  border:1px solid var(--line);
+  overflow:hidden;
+  background:var(--bg-2);
+  position:relative;
+}
+.photo-frame img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(15%);
+}
+.photo-placeholder{
+  height:100%;
+  display:grid;place-items:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:.65rem;
+  line-height:1.8;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.photo-corner{
+  position:absolute;
+  width:65px;height:65px;
+  right:-12px;bottom:-12px;
+  border-right:1px solid var(--accent);
+  border-bottom:1px solid var(--accent);
+}
+.about-copy h3{
+  font-size:clamp(2rem,4vw,4rem);
+  line-height:1;
+  margin:8px 0 35px;
+}
+.about-copy p{
+  max-width:650px;
+  color:rgba(241,238,231,.68);
+  line-height:1.9;
+  margin-bottom:20px;
+}
+.about-meta{
+  margin-top:50px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--line);
+}
+.meta-item{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.meta-item:nth-child(odd){margin-right:25px}
+.meta-label{display:block;color:var(--muted);font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px}
+.meta-value{font-size:.9rem}
+
+/* ---------- PROJECTS ---------- */
+.project-list{border-top:1px solid var(--line)}
+.project{
+  display:grid;
+  grid-template-columns:90px 1fr 270px 60px;
+  align-items:center;
+  gap:30px;
+  padding:32px 0;
+  border-bottom:1px solid var(--line);
+  transition:.35s ease;
+}
+.project:hover{padding-left:20px;background:linear-gradient(90deg,var(--accent-soft),transparent 65%)}
+.project-no{font-size:.65rem;color:var(--muted)}
+.project h3{font-size:clamp(1.7rem,3vw,3.2rem);transition:.3s}
+.project:hover h3{color:var(--accent)}
+.project-type{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;line-height:1.7}
+.project-arrow{font-size:1.7rem;transition:.3s}
+.project:hover .project-arrow{transform:translate(5px,-5px);color:var(--accent)}
+
+/* ---------- SKILLS ---------- */
+.skills-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+.skill{
+  background:var(--bg);
+  min-height:260px;
+  padding:38px;
+  transition:.35s;
+}
+.skill:hover{background:var(--bg-2)}
+.skill-index{font-size:.62rem;color:var(--accent);letter-spacing:.14em}
+.skill h3{font-size:2rem;margin:50px 0 14px}
+.skill p{color:var(--muted);font-size:.86rem;line-height:1.7}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.skill-tags span{
+  border:1px solid var(--line);
+  padding:7px 10px;
+  color:var(--muted);
+  font-size:.62rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+/* ---------- CHANNEL ---------- */
+.channel-box{
+  min-height:440px;
+  border:1px solid var(--line);
+  padding:7vw;
+  position:relative;
+  overflow:hidden;
+  background:var(--bg-2);
+}
+.channel-box:before{
+  content:"";
+  position:absolute;
+  width:400px;height:400px;
+  right:-130px;top:-160px;
+  border:1px solid rgba(145,207,208,.25);
+  border-radius:50%;
+  box-shadow:0 0 0 55px rgba(145,207,208,.025),0 0 0 110px rgba(145,207,208,.018);
+}
+.channel-box h3{
+  font-size:clamp(2.8rem,6vw,6.5rem);
+  line-height:.88;
+  max-width:800px;
+  position:relative;
+}
+.channel-box h3 em{color:var(--accent)}
+.channel-box p{
+  max-width:550px;
+  color:var(--muted);
+  line-height:1.8;
+  margin:30px 0;
+  position:relative;
+}
+
+/* ---------- CONTACT ---------- */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr .75fr;
+  gap:10vw;
+}
+.contact-title{
+  font-size:clamp(3.7rem,8vw,8rem);
+  line-height:.82;
+  letter-spacing:-.05em;
+}
+.contact-title em{color:var(--accent)}
+.contact-copy{color:var(--muted);line-height:1.8;margin-top:35px;max-width:500px}
+.socials{
+  display:flex;flex-direction:column;
+  border-top:1px solid var(--line);
+}
+.social{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 0;border-bottom:1px solid var(--line);
+  transition:.3s;
+}
+.social:hover{color:var(--accent);padding-left:12px}
+.social-left{display:flex;align-items:center;gap:17px}
+.social-icon{width:22px;height:22px;display:grid;place-items:center}
+.social-icon svg{width:20px;height:20px;fill:currentColor}
+.social-name{text-transform:uppercase;font-size:.68rem;letter-spacing:.16em}
+.social-handle{font-size:.65rem;color:var(--muted)}
+.mail-btn{margin-top:30px;display:inline-block}
+
+/* ---------- FOOTER ---------- */
+footer{
+  margin-left:var(--sidebar);
+  border-top:1px solid var(--line);
+  padding:25px 6vw;
+  display:flex;justify-content:space-between;gap:20px;
+  color:var(--muted);
+  font-size:.6rem;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ---------- MOBILE ---------- */
+.mobile-toggle{
+  display:none;
+  position:fixed;right:20px;top:20px;z-index:120;
+  width:48px;height:48px;border:1px solid var(--line);
+  background:rgba(29,30,36,.9);color:var(--cream);
+  border-radius:50%;
+}
+@media(max-width:850px){
+  :root{--sidebar:0px}
+  .side-nav{
+    width:100%;height:70px;bottom:auto;
+    flex-direction:row;padding:0 20px;
+    border-right:0;border-bottom:1px solid var(--line);
+  }
+  .brand-mark{writing-mode:horizontal-tb;transform:none}
+  .nav-menu{
+    flex-direction:row;gap:18px;
+  }
+  .nav-menu a{writing-mode:horizontal-tb;transform:none;font-size:.55rem}
+  .nav-menu a.active:before{display:none}
+  .side-year{display:none}
+  .hero{padding:115px 7vw 80px;min-height:100svh}
+  .hero-title{font-size:clamp(3.8rem,16vw,7rem)}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .hero-scroll{display:none}
+  .marquee{margin-left:0}
+  .section{padding-top:100px;padding-bottom:100px}
+  .section-head{grid-template-columns:1fr;gap:15px;margin-bottom:50px}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:55px}
+  .photo-wrap{max-width:400px}
+  .project{grid-template-columns:45px 1fr 35px;gap:12px}
+  .project-type{display:none}
+  .skills-layout{grid-template-columns:1fr}
+  footer{margin-left:0;flex-direction:column}
+}
+@media(max-width:560px){
+  .nav-menu{gap:10px}
+  .nav-menu a{font-size:.48rem;letter-spacing:.08em}
+  .hero-top{align-items:flex-start}
+  .hero-description{font-size:.85rem}
+  .about-meta{grid-template-columns:1fr}
+  .meta-item:nth-child(odd){margin-right:0}
+  .skill{min-height:220px;padding:28px}
+  .float-orb{right:18px;bottom:18px;width:54px;height:54px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+
+<body>
+
+<!--
+  ================================================================
+  YOUR TWO PERSONAL MEDIA FILES GO HERE
+  Create an "assets" folder beside this HTML file:
+
+  portfolio/
+  ├── index.html
+  └── assets/
+      ├── background.mp4
+      └── precious.jpg
+
+  1. Put your background video in assets/background.mp4
+  2. Put your profile picture in assets/precious.jpg
+
+  You do NOT need to change the rest of the design.
+  ================================================================
+-->
+
+<aside class="side-nav">
+  <a href="#home" class="brand-mark">PRECIOUS.</a>
+
+  <ul class="nav-menu">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <span class="side-year">GH · 2026</span>
+</aside>
+
+<a class="float-orb" href="#contact" aria-label="Contact Precious">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M12 2v20M2 12h20"/>
+    <circle cx="12" cy="12" r="4"/>
+  </svg>
+</a>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="page hero" id="home">
+
+  <!-- BACKGROUND VIDEO: assets/background.mp4 -->
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline>
+    <source src="assets/background.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-video-overlay"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content reveal">
+    <div class="hero-top">
+      <span class="eyebrow">Software Engineering Student · Ghana</span>
+      <span class="availability"><i class="status-dot"></i> Building & learning</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span>Building</span><br>
+      <span class="outline">digital</span><br>
+      <span class="italic">experiences.</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-description">
+        I'm <strong>Precious Seyram</strong>, a Level 100 BSc Software Engineering student
+        exploring software development, web experiences, UI/UX design and game development.
+        I learn by building — and I'm only getting started.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">Explore Projects</a>
+        <a class="btn" href="#contact">Let's Connect ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Code <b>✦</b></span>
+    <span>Design <b>✦</b></span>
+    <span>Build <b>✦</b></span>
+    <span>Learn <b>✦</b></span>
+    <span>Create <b>✦</b></span>
+    <span>Code <b>✦</b></span>
+    <span>Design <b>✦</b></span>
+    <span>Build <b>✦</b></span>
+    <span>Learn <b>✦</b></span>
+    <span>Create <b>✦</b></span>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section class="page section" id="about">
+  <div class="page-inner">
+    <div class="section-head reveal">
+      <span class="section-number">01 / About</span>
+      <h2 class="section-title">A curious <em>builder.</em></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="photo-wrap reveal">
+        <div class="photo-frame">
+          <!-- PROFILE PHOTO: assets/precious.jpg -->
+          <img src="assets/precious.jpg" alt="Precious Seyram"
+               onerror="this.style.display='none';document.getElementById('photoPlaceholder').style.display='grid';">
+          <div class="photo-placeholder" id="photoPlaceholder" style="display:none;">
+            YOUR PHOTO<br>GOES HERE<br><br>
+            assets/precious.jpg
+          </div>
+        </div>
+        <div class="photo-corner"></div>
+      </div>
+
+      <div class="about-copy reveal">
+        <span class="eyebrow">Nice to meet you</span>
+        <h3>Learning today.<br>Building for tomorrow.</h3>
+
+        <p>
+          I'm <strong>Precious Seyram</strong> — a Level 100 BSc Software Engineering
+          student with a growing interest in software development, digital experiences
+          and UI/UX design.
+        </p>
+
+        <p>
+          I'm continuously developing my programming fundamentals while exploring
+          web development, design and game development. I enjoy taking an idea,
+          breaking it down, and turning it into something people can actually use.
+        </p>
+
+        <p>
+          My long-term goal is to become a well-rounded software engineer who builds
+          useful technology, contributes to meaningful projects and keeps learning
+          far beyond the classroom.
+        </p>
+
+        <div class="about-meta">
+          <div class="meta-item">
+            <span class="meta-label">Currently</span>
+            <span class="meta-value">BSc Software Engineering · Level 100</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Based in</span>
+            <span class="meta-value">Ghana</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Focus</span>
+            <span class="meta-value">Software · Web · UI/UX</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Mindset</span>
+            <span class="meta-value">Learn · Build · Improve</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="page section" id="projects">
+  <div class="page-inner">
+    <div class="section-head reveal">
+      <span class="section-number">02 / Work</span>
+      <h2 class="section-title">Selected <em>projects.</em></h2>
+    </div>
+
+    <div class="project-list reveal">
+      <a class="project" href="https://github.com/preciemiee" target="_blank" rel="noopener">
+        <span class="project-no">01</span>
+        <h3>Andy Digital Media Production</h3>
+        <span class="project-type">Web Design<br>WordPress · Family Business</span>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <!-- Add another project here later by duplicating the .project block. -->
+      <div class="project" style="cursor:default;">
+        <span class="project-no">02</span>
+        <h3>More in progress.</h3>
+        <span class="project-type">Currently learning<br>Currently building</span>
+        <span class="project-arrow">✦</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="page section" id="skills">
+  <div class="page-inner">
+    <div class="section-head reveal">
+      <span class="section-number">03 / Toolkit</span>
+      <h2 class="section-title">Things I'm <em>learning.</em></h2>
+    </div>
+
+    <div class="skills-layout reveal">
+      <div class="skill">
+        <span class="skill-index">01 — Web</span>
+        <h3>Web Development</h3>
+        <p>Creating responsive websites and learning how the pieces of the web work together.</p>
+        <div class="skill-tags">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>WordPress</span><span>Git & GitHub</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <span class="skill-index">02 — Design</span>
+        <h3>UI / UX</h3>
+        <p>Interested in interfaces that feel clear, intentional and enjoyable to use.</p>
+        <div class="skill-tags">
+          <span>Interface Design</span><span>Prototyping</span><span>Design Systems</span><span>User-Centered Design</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <span class="skill-index">03 — Game</span>
+        <h3>Game Development</h3>
+        <p>Exploring the fundamentals of interactive experiences and game development.</p>
+        <div class="skill-tags">
+          <span>Godot 4</span><span>GDScript</span><span>Game Design</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <span class="skill-index">04 — Growth</span>
+        <h3>Engineering</h3>
+        <p>Building the foundations that will support my journey as a software engineer.</p>
+        <div class="skill-tags">
+          <span>Programming Fundamentals</span><span>DSA</span><span>Software Engineering</span><span>Open Source</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= YOUTUBE ================= -->
+<section class="page section" id="youtube">
+  <div class="page-inner">
+    <div class="section-head reveal">
+      <span class="section-number">04 / Channel</span>
+      <h2 class="section-title">Learning in <em>public.</em></h2>
+    </div>
+
+    <div class="channel-box reveal">
+      <span class="eyebrow">Precious Codes</span>
+      <h3>Build it.<br>Understand it.<br><em>Share it.</em></h3>
+      <p>
+        A space for my coding journey, experiments, lessons and the things I'm
+        learning along the way.
+      </p>
+      <a class="btn primary" href="https://youtube.com/@precious_seyram" target="_blank" rel="noopener">
+        Visit YouTube ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="page section" id="contact">
+  <div class="page-inner">
+    <div class="section-head reveal">
+      <span class="section-number">05 / Contact</span>
+      <h2 class="section-title">Let's make<br><em>something.</em></h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="reveal">
+        <h3 class="contact-title">Have an idea?<br><em>Let's talk.</em></h3>
+        <p class="contact-copy">
+          I'm open to interesting conversations, collaborations, learning opportunities
+          and projects that let me grow while creating something useful.
+        </p>
+        <a class="btn primary mail-btn" href="mailto:preciouseyram000@gmail.com">Send an email ↗</a>
+      </div>
+
+      <div class="socials reveal">
+
+        <a class="social" href="https://github.com/preciemiee" target="_blank" rel="noopener">
+          <span class="social-left">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 8.36 22.91c.58.11.79-.25.79-.56v-2.18c-3.23.7-3.91-1.37-3.91-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.04 1.77 2.72 1.26 3.39.96.1-.75.41-1.26.74-1.55-2.58-.29-5.29-1.29-5.29-5.74 0-1.27.45-2.31 1.2-3.12-.12-.29-.52-1.48.11-3.08 0 0 .98-.31 3.17 1.19A11 11 0 0 1 12 5.87c.99 0 1.99.13 2.92.38 2.19-1.5 3.16-1.19 3.16-1.19.63 1.6.24 2.79.12 3.08.75.81 1.2 1.85 1.2 3.12 0 4.46-2.72 5.45-5.31 5.73.42.36.79 1.08.79 2.18v3.18c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            </span>
+            <span class="social-name">GitHub</span>
+          </span>
+          <span class="social-handle">@preciemiee ↗</span>
+        </a>
+
+        <a class="social" href="https://www.linkedin.com/in/precious-seyram-zodzenu-382aa33ab/" target="_blank" rel="noopener">
+          <span class="social-left">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24"><path d="M5.1 3.5A2.1 2.1 0 1 1 5.1 7.7a2.1 2.1 0 0 1 0-4.2ZM3.3 9.2h3.6V21H3.3V9.2Zm5.8 0h3.4v1.61h.05c.47-.9 1.62-1.85 3.34-1.85 3.57 0 4.23 2.35 4.23 5.4V21h-3.6v-5.88c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9.1V9.2Z"/></svg>
+            </span>
+            <span class="social-name">LinkedIn</span>
+          </span>
+          <span class="social-handle">Precious Seyram ↗</span>
+        </a>
+
+        <a class="social" href="https://youtube.com/@precious_seyram" target="_blank" rel="noopener">
+          <span class="social-left">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.4.58A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.12c1.86.58 9.4.58 9.4.58s7.54 0 9.4-.58a3 3 0 0 0 2.1-2.12A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8ZM9.6 15.9V8.1l6.6 3.9-6.6 3.9Z"/></svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </span>
+          <span class="social-handle">@precious_seyram ↗</span>
+        </a>
+
+        <a class="social" href="mailto:preciouseyram000@gmail.com">
+          <span class="social-left">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+            </span>
+            <span class="social-name">Email</span>
+          </span>
+          <span class="social-handle">Contact me ↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span>© 2026 Precious Seyram</span>
+  <span>Designed & built with curiosity.</span>
+</footer>
+
+<script>
+/* ---------- ACTIVE SIDE NAV ---------- */
+const navItems = document.querySelectorAll('.nav-menu a');
+const sections = document.querySelectorAll('main section[id]');
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navItems.forEach(link=>{
+        link.classList.toggle('active', link.getAttribute('href') === '#'+entry.target.id);
+      });
+    }
+  });
+},{threshold:.35});
+
+sections.forEach(section=>observer.observe(section));
+
+/* ---------- REVEAL ON SCROLL ---------- */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+/* ---------- BACKGROUND VIDEO ---------- */
+const video = document.getElementById('heroVideo');
+
+/*
+  If assets/background.mp4 exists, the video is automatically shown.
+  If it doesn't exist yet, the page simply keeps its dark background.
+*/
+video.addEventListener('loadeddata',()=>{
+  video.style.display='block';
+});
+video.addEventListener('error',()=>{
+  video.style.display='none';
+});
+
+/* ---------- SMALL POINTER EFFECT ---------- */
+const orb=document.querySelector('.float-orb');
+document.addEventListener('mousemove',(e)=>{
+  if(window.innerWidth > 850){
+    const x=(e.clientX/window.innerWidth-.5)*5;
+    const y=(e.clientY/window.innerHeight-.5)*5;
+    orb.style.marginRight=`${x}px`;
+    orb.style.marginBottom=`${y}px`;
+  }
+});
+</script>
+
+</body>
+</html>
